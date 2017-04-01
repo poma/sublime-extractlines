@@ -4,6 +4,7 @@ import re
 import sublime
 import sublime_plugin
 
+
 class ExtractDuplicateLinesCommand(ExtractUniqueLinesCommand):
 
     def run(self, edit):
@@ -21,14 +22,18 @@ class ExtractUniqueLinesCommand(sublime_plugin.TextCommand):
         results_view.set_scratch(True)
         results_view.settings().set('word_wrap', self.view.settings().get('word_wrap'))
 
+        lines = self.get_all_lines()
+        lines = self.filter(lines, duplicate)
+        text = ''.join(lines)
+        
+        results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
+        results_view.set_syntax_file(self.view.settings().get('syntax'))
+
+    def get_all_lines(self):
         # This is the only way I found to extract a list of all lines, probably there is a more optimal one
         # Also is could be better to take newline symbol form current view settings
         ranges = self.view.lines(sublime.Region(0, self.view.size()))
-        lines = ['%s\n' % (self.view.substr(r)) for r in ranges]
-        lines = self.filter(lines, duplicate)
-        text = ''.join(lines)
-        results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
-        results_view.set_syntax_file(self.view.settings().get('syntax'))
+        return ['%s\n' % (self.view.substr(r)) for r in ranges]
 
     def filter(self, lines, duplicate):
         duplicates = set(self.find_duplicates(lines));
