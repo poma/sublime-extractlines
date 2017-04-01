@@ -1,0 +1,4 @@
+[
+	{ "caption": "Extract Lines: Extract Unique lines", "command": "extract_unique_lines" },
+    { "caption": "Extract Lines: Extract Duplicate lines", "command": "extract_duplicate_lines" }
+]

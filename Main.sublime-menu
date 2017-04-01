@@ -1,0 +1,17 @@
+[
+    {
+        "id": "edit",
+        "children":
+        [
+            {
+                "caption": "Extract Lines",
+                "id": "extract_lines",
+                "children":
+                [
+                    { "caption": "Extract Unique", "command": "extract_unique_lines" },
+                    { "caption": "Extract Duplicate", "command": "extract_duplicate_lines" }
+                ]
+            }
+        ]
+    }
+]
