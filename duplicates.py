@@ -1,6 +1,3 @@
-import functools
-import itertools
-import re
 import sublime
 import sublime_plugin
 
@@ -25,7 +22,7 @@ class ExtractUniqueLinesCommand(sublime_plugin.TextCommand):
         lines = self.get_all_lines()
         lines = self.filter(lines, duplicate)
         text = ''.join(lines)
-        
+
         results_view.run_command('append', {'characters': text, 'force': True, 'scroll_to_end': False})
         results_view.set_syntax_file(self.view.settings().get('syntax'))
 
